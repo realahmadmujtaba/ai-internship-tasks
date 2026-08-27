@@ -9,6 +9,7 @@ Three machine learning tasks completed during the DevelopersHub AI/ML engineerin
 | 01 | `Task_01/` | TODO: one line on what this task solved |
 | 02 | `Task_02/` | TODO |
 | 03 | `Task_03/` | TODO |
+| Phase 2 | `Phase_2/` | BERT classifier, ML pipeline, and multimodal ML (DevelopersHub Phase 2) |
 
 ## Built with
 
