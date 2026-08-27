@@ -7,8 +7,21 @@ This task involved implementing a machine learning model to predict the next day
 The dataset was obtained from Yahoo Finance using the yfinance library, specifically for the AAPL (Apple Inc.) stock ticker. The model used 3 years of daily stock data, incorporating features including opening price, highest price, lowest price, and trading volume to predict the subsequent day's closing price.
 
 ## Key Findings
-The model implementation compared both Linear Regression and Random Forest algorithms to determine the optimal approach for stock price prediction. Performance was evaluated using Mean Absolute Error (MAE) and Root Mean Squared Error (RMSE) metrics. The analysis revealed insights about which features (Open, High, Low, Volume) had the greatest influence on predicting closing prices, and demonstrated the challenges inherent in financial market prediction.
+Linear Regression outperformed Random Forest on this task (MAE $4.14 vs $15.53) — with a chronological
+train/test split and only Open/High/Low/Volume as features, the linear model generalizes better than
+the more complex Random Forest, which overfits the training period. `High` was the most influential
+feature for predicting next-day Close, by coefficient magnitude.
+
+## Performance Metrics
+(from a live run against real AAPL data pulled via yfinance)
+
+| Model | MAE | RMSE |
+| --- | --- | --- |
+| Linear Regression (selected) | $4.14 | $5.68 |
+| Random Forest | $15.53 | $21.59 |
+
+MAE as a percentage of the average test-set closing price ($285.34): **1.45%**.
 
 ## Files Produced
 - `Task2_Stock_Price_Prediction.ipynb`: Complete Jupyter Notebook with all analysis, model training, and visualizations
-- `./figures/`: Directory containing generated plots including actual vs predicted price comparisons
+- `./figures/`: Directory containing generated plots (actual vs. predicted prices, model coefficients)

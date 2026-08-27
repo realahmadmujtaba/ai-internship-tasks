@@ -38,21 +38,23 @@ The dataset includes the following clinical attributes:
 - **Decision Tree**: Non-linear model for comparison
 
 ## Key Findings
-- The most important features for predicting heart disease were typically:
-  - Exercise-induced angina (exang)
-  - Number of major vessels colored (ca)
-  - Maximum heart rate achieved (thalach)
-  - ST depression induced by exercise (oldpeak)
-  - Chest pain type (cp)
+- Top predictors by Logistic Regression coefficient: `ca` (number of major vessels), `thal`
+  (thalassemia), `sex`, `cp` (chest pain type), `exang` (exercise-induced angina).
+- Top predictors by Decision Tree importance: `thal`, `cp`, `ca`, `age`, `chol`.
 
 ## Files Included
 - `Task3_Heart_Disease_Prediction.ipynb`: Main Jupyter notebook with complete implementation
+- `run_heart_disease_prediction.py`: Standalone script version (same pipeline, runnable end-to-end)
 - `heart_disease.csv`: Dataset used for training
 - `figures/`: Directory containing generated visualizations
 
 ## Performance Metrics
-- **Accuracy**: Typically 80-85% depending on the model
-- **ROC AUC**: Usually above 0.85 indicating good discrimination ability
+(from `run_heart_disease_prediction.py`, 242/61 train/test split, verified by running the script)
+
+| Model | Accuracy | ROC AUC |
+| --- | --- | --- |
+| Logistic Regression | 86.89% | 0.9513 |
+| Decision Tree | 78.69% | 0.8047 |
 
 ## Important Disclaimer
 This model is designed for educational purposes only and should not be used for actual medical diagnosis. Always consult healthcare professionals for proper medical assessment and diagnosis.

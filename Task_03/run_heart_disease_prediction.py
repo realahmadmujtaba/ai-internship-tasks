@@ -51,9 +51,9 @@ plt.close()  # Close the figure to save memory
 for column in df.columns:
     if df[column].isnull().sum() > 0:
         if df[column].dtype in ['int64', 'float64']:
-            df[column].fillna(df[column].median(), inplace=True)
+            df[column] = df[column].fillna(df[column].median())
         else:
-            df[column].fillna(df[column].mode()[0], inplace=True)
+            df[column] = df[column].fillna(df[column].mode()[0])
 
 print("\nMissing values after imputation:")
 print(df.isnull().sum().sum())
