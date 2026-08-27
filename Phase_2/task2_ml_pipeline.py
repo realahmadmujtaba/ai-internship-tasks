@@ -21,6 +21,13 @@ SKILLS GAINED:
 STEP 1: IMPORT LIBRARIES
 """
 
+
+import sys
+if sys.stdout.encoding != 'utf-8':
+    sys.stdout.reconfigure(encoding='utf-8')
+import os
+os.makedirs('./outputs', exist_ok=True)
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -124,7 +131,7 @@ axes[1, 1].set_ylabel('Monthly Charges')
 plt.suptitle('')
 
 plt.tight_layout()
-plt.savefig('/mnt/user-data/outputs/task2_eda.png', dpi=300, bbox_inches='tight')
+plt.savefig('./outputs/task2_eda.png', dpi=300, bbox_inches='tight')
 print("✓ EDA visualizations saved as 'task2_eda.png'")
 plt.show()
 
@@ -421,7 +428,7 @@ comparison_df = pd.DataFrame([
 print("\n" + comparison_df.to_string(index=False))
 
 # Select best model
-best_model_idx = comparison_df['F1-Score'].idxmax()
+best_model_idx = comparison_df['Test F1-Score'].idxmax()
 best_model = comparison_df.loc[best_model_idx, 'Model']
 best_f1 = comparison_df.loc[best_model_idx, 'Test F1-Score']
 
@@ -482,7 +489,7 @@ axes[1, 1].legend()
 axes[1, 1].grid(True, alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('/mnt/user-data/outputs/task2_model_comparison.png', dpi=300, bbox_inches='tight')
+plt.savefig('./outputs/task2_model_comparison.png', dpi=300, bbox_inches='tight')
 print("✓ Model comparison visualizations saved as 'task2_model_comparison.png'")
 plt.show()
 
@@ -522,7 +529,7 @@ plt.xlabel('Importance')
 plt.title(f'Top {top_n} Feature Importance (Random Forest)')
 plt.gca().invert_yaxis()
 plt.tight_layout()
-plt.savefig('/mnt/user-data/outputs/task2_feature_importance.png', dpi=300, bbox_inches='tight')
+plt.savefig('./outputs/task2_feature_importance.png', dpi=300, bbox_inches='tight')
 print(f"\n✓ Feature importance plot saved as 'task2_feature_importance.png'")
 plt.show()
 
@@ -538,7 +545,7 @@ print("="*50)
 
 # Save the best pipeline
 best_pipeline = grid_search_rf.best_estimator_
-model_path = '/mnt/user-data/outputs/churn_prediction_pipeline.pkl'
+model_path = './outputs/churn_prediction_pipeline.pkl'
 joblib.dump(best_pipeline, model_path)
 
 print(f"✓ Best pipeline saved to '{model_path}'")
@@ -561,7 +568,7 @@ preprocessing_info = {
     }
 }
 
-joblib.dump(preprocessing_info, '/mnt/user-data/outputs/preprocessing_info.pkl')
+joblib.dump(preprocessing_info, './outputs/preprocessing_info.pkl')
 print("✓ Preprocessing info saved")
 
 

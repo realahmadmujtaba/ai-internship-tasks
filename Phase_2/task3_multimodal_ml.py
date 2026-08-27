@@ -24,6 +24,13 @@ SKILLS GAINED:
 STEP 1: IMPORT LIBRARIES
 """
 
+
+import sys
+if sys.stdout.encoding != 'utf-8':
+    sys.stdout.reconfigure(encoding='utf-8')
+import os
+os.makedirs('./outputs', exist_ok=True)
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -63,7 +70,7 @@ print("CREATING SYNTHETIC HOUSING DATASET")
 print("="*50)
 
 # Create directories for synthetic images
-os.makedirs('/home/claude/house_images', exist_ok=True)
+os.makedirs('./house_images', exist_ok=True)
 
 # Generate synthetic house images and data
 np.random.seed(42)
@@ -88,7 +95,7 @@ def create_synthetic_house_image(house_id, price):
     
     # Save as image
     from PIL import Image
-    Image.fromarray(img_uint8).save(f'/home/claude/house_images/house_{house_id}.png')
+    Image.fromarray(img_uint8).save(f'./house_images/house_{house_id}.png')
     
     return f'house_{house_id}.png'
 
@@ -144,7 +151,7 @@ print(f"\n--- Statistics ---")
 print(df.describe())
 
 # Verify images exist
-image_dir = '/home/claude/house_images'
+image_dir = './house_images'
 n_images = len(os.listdir(image_dir))
 print(f"\n✓ {n_images} synthetic house images created in {image_dir}")
 
@@ -260,13 +267,13 @@ def load_and_preprocess_images(df, image_dir, img_size=(224, 224)):
 
 # Load images
 print("Loading training images...")
-X_train_images, train_indices = load_and_preprocess_images(df_train, '/home/claude/house_images')
+X_train_images, train_indices = load_and_preprocess_images(df_train, './house_images')
 
 print("Loading validation images...")
-X_val_images, val_indices = load_and_preprocess_images(df_val, '/home/claude/house_images')
+X_val_images, val_indices = load_and_preprocess_images(df_val, './house_images')
 
 print("Loading test images...")
-X_test_images, test_indices = load_and_preprocess_images(df_test, '/home/claude/house_images')
+X_test_images, test_indices = load_and_preprocess_images(df_test, './house_images')
 
 # Filter other data to match loaded images
 df_train = df_train.iloc[train_indices].reset_index(drop=True)
@@ -556,7 +563,7 @@ axes[1, 1].legend()
 axes[1, 1].grid(True, alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('/mnt/user-data/outputs/task3_multimodal_results.png', dpi=300, bbox_inches='tight')
+plt.savefig('./outputs/task3_multimodal_results.png', dpi=300, bbox_inches='tight')
 print("✓ Results visualization saved as 'task3_multimodal_results.png'")
 plt.show()
 
@@ -591,7 +598,7 @@ axes[1].set_title('Residuals vs Predicted Values')
 axes[1].grid(True, alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('/mnt/user-data/outputs/task3_residual_analysis.png', dpi=300, bbox_inches='tight')
+plt.savefig('./outputs/task3_residual_analysis.png', dpi=300, bbox_inches='tight')
 print("✓ Residual analysis saved as 'task3_residual_analysis.png'")
 plt.show()
 
@@ -633,7 +640,7 @@ ax.set_xlabel('Importance')
 ax.set_title(f'Top {top_n} Features - {best_results["model"]}')
 ax.invert_yaxis()
 plt.tight_layout()
-plt.savefig('/mnt/user-data/outputs/task3_feature_importance.png', dpi=300, bbox_inches='tight')
+plt.savefig('./outputs/task3_feature_importance.png', dpi=300, bbox_inches='tight')
 print("✓ Feature importance plot saved as 'task3_feature_importance.png'")
 plt.show()
 
@@ -647,13 +654,13 @@ print("SAVING MODELS")
 print("="*50)
 
 # Save models
-joblib.dump(rf_model, '/mnt/user-data/outputs/multimodal_rf_model.pkl')
+joblib.dump(rf_model, './outputs/multimodal_rf_model.pkl')
 print("✓ Random Forest model saved")
 
-joblib.dump(gb_model, '/mnt/user-data/outputs/multimodal_gb_model.pkl')
+joblib.dump(gb_model, './outputs/multimodal_gb_model.pkl')
 print("✓ Gradient Boosting model saved")
 
-nn_model.save('/mnt/user-data/outputs/multimodal_nn_model.h5')
+nn_model.save('./outputs/multimodal_nn_model.h5')
 print("✓ Neural Network model saved")
 
 # Save preprocessing objects
@@ -664,7 +671,7 @@ preprocessing_data = {
     'feature_names': feature_names
 }
 
-joblib.dump(preprocessing_data, '/mnt/user-data/outputs/multimodal_preprocessing.pkl')
+joblib.dump(preprocessing_data, './outputs/multimodal_preprocessing.pkl')
 print("✓ Preprocessing objects saved")
 
 
@@ -735,7 +742,7 @@ sample_tabular = {
     'basement': 1
 }
 
-sample_image_path = '/home/claude/house_images/house_0.png'
+sample_image_path = './house_images/house_0.png'
 
 predicted_price = predict_house_price(
     sample_image_path, 

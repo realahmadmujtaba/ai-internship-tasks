@@ -20,6 +20,13 @@ SKILLS GAINED:
 STEP 1: IMPORT REQUIRED LIBRARIES
 """
 
+
+import sys
+if sys.stdout.encoding != 'utf-8':
+    sys.stdout.reconfigure(encoding='utf-8')
+import os
+os.makedirs('./outputs', exist_ok=True)
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -440,7 +447,7 @@ for i, v in enumerate(values):
     axes[1, 1].text(i, v + 0.02, f'{v:.4f}', ha='center', va='bottom')
 
 plt.tight_layout()
-plt.savefig('/mnt/user-data/outputs/task1_results.png', dpi=300, bbox_inches='tight')
+plt.savefig('./outputs/task1_results.png', dpi=300, bbox_inches='tight')
 print("✓ Visualizations saved as 'task1_results.png'")
 plt.show()
 
@@ -453,8 +460,8 @@ print("\n" + "="*50)
 print("SAVING MODEL")
 print("="*50)
 
-model.save_pretrained('/mnt/user-data/outputs/bert_news_classifier')
-tokenizer.save_pretrained('/mnt/user-data/outputs/bert_news_classifier')
+model.save_pretrained('./outputs/bert_news_classifier')
+tokenizer.save_pretrained('./outputs/bert_news_classifier')
 
 print("✓ Model saved to 'bert_news_classifier' directory")
 
